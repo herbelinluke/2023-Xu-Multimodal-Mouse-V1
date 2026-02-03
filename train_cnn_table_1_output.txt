@@ -1,0 +1,1140 @@
+10 vid_mean
+070921_J553RT
+30120 7540
+Start epoch 0
+Epoch 0 train loss: 0.7463362499818964
+Epoch 0 val loss: 0.6734913508097331
+End epoch 0
+Start epoch 1
+Epoch 1 train loss: 0.6747150794934418
+Epoch 1 val loss: 0.6587355097134908
+End epoch 1
+Start epoch 2
+Epoch 2 train loss: 0.6618602573871613
+Epoch 2 val loss: 0.6516385753949483
+End epoch 2
+Start epoch 3
+Epoch 3 train loss: 0.6526288289134785
+Epoch 3 val loss: 0.6463131050268809
+End epoch 3
+Start epoch 4
+Epoch 4 train loss: 0.64508933788639
+Epoch 4 val loss: 0.6416730682055155
+End epoch 4
+Start epoch 5
+Epoch 5 train loss: 0.639434590178021
+Epoch 5 val loss: 0.6397475659847259
+End epoch 5
+Start epoch 6
+Epoch 6 train loss: 0.6354102931790433
+Epoch 6 val loss: 0.6364741881688436
+End epoch 6
+Start epoch 7
+Epoch 7 train loss: 0.632332719483618
+Epoch 7 val loss: 0.636655306816101
+End epoch 7
+Start epoch 8
+Epoch 8 train loss: 0.6296746983366498
+Epoch 8 val loss: 0.6353358546892802
+End epoch 8
+Start epoch 9
+Epoch 9 train loss: 0.6273384094238281
+Epoch 9 val loss: 0.6322533051172893
+End epoch 9
+Start epoch 10
+Epoch 10 train loss: 0.6253554730092065
+Epoch 10 val loss: 0.6314676384131114
+End epoch 10
+Start epoch 11
+Epoch 11 train loss: 0.62375424271923
+Epoch 11 val loss: 0.6302962124347686
+End epoch 11
+Start epoch 12
+Epoch 12 train loss: 0.6219948565555831
+Epoch 12 val loss: 0.6307327270507812
+End epoch 12
+Start epoch 13
+Epoch 13 train loss: 0.620725369554455
+Epoch 13 val loss: 0.6279849688212077
+End epoch 13
+Start epoch 14
+Epoch 14 train loss: 0.6195696930764085
+Epoch 14 val loss: 0.6301179965337117
+End epoch 14
+Start epoch 15
+Epoch 15 train loss: 0.6186056894771124
+Epoch 15 val loss: 0.6275720437367757
+End epoch 15
+Start epoch 16
+Epoch 16 train loss: 0.6172638186963938
+Epoch 16 val loss: 0.6264602084954579
+End epoch 16
+Start epoch 17
+Epoch 17 train loss: 0.6162535810874681
+Epoch 17 val loss: 0.6280054807662964
+End epoch 17
+Start epoch 18
+Epoch 18 train loss: 0.6156130933155448
+Epoch 18 val loss: 0.6264166593551636
+End epoch 18
+Start epoch 19
+Epoch 19 train loss: 0.6146371576745632
+Epoch 19 val loss: 0.6255175073941549
+End epoch 19
+Start epoch 20
+Epoch 20 train loss: 0.6137066033937163
+Epoch 20 val loss: 0.6278646647930145
+End epoch 20
+Start epoch 21
+Epoch 21 train loss: 0.613215395454633
+Epoch 21 val loss: 0.6260180751482646
+End epoch 21
+Start epoch 22
+Epoch 22 train loss: 0.6123278327917648
+Epoch 22 val loss: 0.6276899059613545
+End epoch 22
+Start epoch 23
+Epoch 23 train loss: 0.6116555408906128
+Epoch 23 val loss: 0.6248911798000336
+End epoch 23
+Start epoch 24
+Epoch 24 train loss: 0.6110491601087279
+Epoch 24 val loss: 0.6249113937218984
+End epoch 24
+Start epoch 25
+Epoch 25 train loss: 0.6104863104173692
+Epoch 25 val loss: 0.6272777120272318
+End epoch 25
+Start epoch 26
+Epoch 26 train loss: 0.6099315987805188
+Epoch 26 val loss: 0.623391451438268
+End epoch 26
+Start epoch 27
+Epoch 27 train loss: 0.6093315204321328
+Epoch 27 val loss: 0.623585166533788
+End epoch 27
+Start epoch 28
+Epoch 28 train loss: 0.6089335710315381
+Epoch 28 val loss: 0.6227130512396495
+End epoch 28
+Start epoch 29
+Epoch 29 train loss: 0.608281186576617
+Epoch 29 val loss: 0.6233650048573812
+End epoch 29
+Start epoch 30
+Epoch 30 train loss: 0.608027318776664
+Epoch 30 val loss: 0.6235079069932302
+End epoch 30
+Start epoch 31
+Epoch 31 train loss: 0.6078220358339407
+Epoch 31 val loss: 0.6265768388907115
+End epoch 31
+Start epoch 32
+Epoch 32 train loss: 0.6072402621729899
+Epoch 32 val loss: 0.6218494335810344
+End epoch 32
+Start epoch 33
+Epoch 33 train loss: 0.6064138346809452
+Epoch 33 val loss: 0.6225726942221324
+End epoch 33
+Start epoch 34
+Epoch 34 train loss: 0.6061508610086926
+Epoch 34 val loss: 0.6229516764481863
+End epoch 34
+Start epoch 35
+Epoch 35 train loss: 0.6060942290192943
+Epoch 35 val loss: 0.622446471452713
+End epoch 35
+Start epoch 36
+Epoch 36 train loss: 0.6057668868768014
+Epoch 36 val loss: 0.623011980454127
+End epoch 36
+Start epoch 37
+Epoch 37 train loss: 0.605396895590475
+Epoch 37 val loss: 0.6251347839832306
+End epoch 37
+Start epoch 38
+Epoch 38 train loss: 0.6050148707325176
+stop training
+10 vid_mean
+070921_J553RT
+30120 7540
+Start epoch 0
+Epoch 0 train loss: 0.7461409538479175
+Epoch 0 val loss: 0.6703294575214386
+End epoch 0
+Start epoch 1
+Epoch 1 train loss: 0.6741289006451429
+Epoch 1 val loss: 0.6570856670538584
+End epoch 1
+Start epoch 2
+Epoch 2 train loss: 0.661226572121604
+Epoch 2 val loss: 0.6507251262664795
+End epoch 2
+Start epoch 3
+Epoch 3 train loss: 0.6522698988348751
+Epoch 3 val loss: 0.646738056341807
+End epoch 3
+Start epoch 4
+Epoch 4 train loss: 0.6451977137791909
+Epoch 4 val loss: 0.6431066791216532
+End epoch 4
+Start epoch 5
+Epoch 5 train loss: 0.6406573547145068
+Epoch 5 val loss: 0.6408021072546641
+End epoch 5
+Start epoch 6
+Epoch 6 train loss: 0.6371205060158746
+Epoch 6 val loss: 0.6384873390197754
+End epoch 6
+Start epoch 7
+Epoch 7 train loss: 0.6337475751416158
+Epoch 7 val loss: 0.6370092988014221
+End epoch 7
+Start epoch 8
+Epoch 8 train loss: 0.6314393095040726
+Epoch 8 val loss: 0.6346644421418508
+End epoch 8
+Start epoch 9
+Epoch 9 train loss: 0.6289032990649596
+Epoch 9 val loss: 0.6320940653483073
+End epoch 9
+Start epoch 10
+Epoch 10 train loss: 0.6264697656793109
+Epoch 10 val loss: 0.6307558874289195
+End epoch 10
+Start epoch 11
+Epoch 11 train loss: 0.6244155375634209
+Epoch 11 val loss: 0.6299894551436106
+End epoch 11
+Start epoch 12
+Epoch 12 train loss: 0.6227836189633709
+Epoch 12 val loss: 0.63058273990949
+End epoch 12
+Start epoch 13
+Epoch 13 train loss: 0.6216648680678869
+Epoch 13 val loss: 0.6294498423735301
+End epoch 13
+Start epoch 14
+Epoch 14 train loss: 0.619906475988485
+Epoch 14 val loss: 0.6262926638126374
+End epoch 14
+Start epoch 15
+Epoch 15 train loss: 0.6188033541380349
+Epoch 15 val loss: 0.6247143507003784
+End epoch 15
+Start epoch 16
+Epoch 16 train loss: 0.6174815489073932
+Epoch 16 val loss: 0.6245530128479004
+End epoch 16
+Start epoch 17
+Epoch 17 train loss: 0.6166385220269025
+Epoch 17 val loss: 0.6228805780410767
+End epoch 17
+Start epoch 18
+Epoch 18 train loss: 0.6157106635934215
+Epoch 18 val loss: 0.6221879144509633
+End epoch 18
+Start epoch 19
+Epoch 19 train loss: 0.614624574022778
+Epoch 19 val loss: 0.6239275832970937
+End epoch 19
+Start epoch 20
+Epoch 20 train loss: 0.6136661151708183
+Epoch 20 val loss: 0.6229538937409719
+End epoch 20
+Start epoch 21
+Epoch 21 train loss: 0.6129388036364216
+Epoch 21 val loss: 0.6245276629924774
+End epoch 21
+Start epoch 22
+Epoch 22 train loss: 0.6123242731821739
+Epoch 22 val loss: 0.6208315511544545
+End epoch 22
+Start epoch 23
+Epoch 23 train loss: 0.6112895345283766
+Epoch 23 val loss: 0.6211731235186259
+End epoch 23
+Start epoch 24
+Epoch 24 train loss: 0.6109947112657256
+Epoch 24 val loss: 0.6253361940383911
+End epoch 24
+Start epoch 25
+Epoch 25 train loss: 0.6101879820985309
+Epoch 25 val loss: 0.6207886298497518
+End epoch 25
+Start epoch 26
+Epoch 26 train loss: 0.6092678752996153
+Epoch 26 val loss: 0.6183528999487559
+End epoch 26
+Start epoch 27
+Epoch 27 train loss: 0.6083921153666609
+Epoch 27 val loss: 0.6168740868568421
+End epoch 27
+Start epoch 28
+Epoch 28 train loss: 0.6079305127515631
+Epoch 28 val loss: 0.617529014746348
+End epoch 28
+Start epoch 29
+Epoch 29 train loss: 0.6074292816347995
+Epoch 29 val loss: 0.6163867870966594
+End epoch 29
+Start epoch 30
+Epoch 30 train loss: 0.6066665447364419
+Epoch 30 val loss: 0.6171998461087544
+End epoch 30
+Start epoch 31
+Epoch 31 train loss: 0.6061974632537971
+Epoch 31 val loss: 0.6159054517745972
+End epoch 31
+Start epoch 32
+Epoch 32 train loss: 0.6055022771075621
+Epoch 32 val loss: 0.6143904606501261
+End epoch 32
+Start epoch 33
+Epoch 33 train loss: 0.605245250261436
+Epoch 33 val loss: 0.6152086933453877
+End epoch 33
+Start epoch 34
+Epoch 34 train loss: 0.6051663433091116
+Epoch 34 val loss: 0.6166370650132497
+End epoch 34
+Start epoch 35
+Epoch 35 train loss: 0.6046471787711322
+Epoch 35 val loss: 0.6155096511046092
+End epoch 35
+Start epoch 36
+Epoch 36 train loss: 0.6043817491854652
+Epoch 36 val loss: 0.6134555717309316
+End epoch 36
+Start epoch 37
+Epoch 37 train loss: 0.6037163885973268
+Epoch 37 val loss: 0.6128514528274536
+End epoch 37
+Start epoch 38
+Epoch 38 train loss: 0.6031440703545586
+Epoch 38 val loss: 0.6135212500890096
+End epoch 38
+Start epoch 39
+Epoch 39 train loss: 0.6026969870268288
+Epoch 39 val loss: 0.613723369439443
+End epoch 39
+Start epoch 40
+Epoch 40 train loss: 0.6023641809568567
+Epoch 40 val loss: 0.612869127591451
+End epoch 40
+Start epoch 41
+Epoch 41 train loss: 0.6021812750121295
+Epoch 41 val loss: 0.6134085416793823
+End epoch 41
+Start epoch 42
+Epoch 42 train loss: 0.6017499747922865
+Epoch 42 val loss: 0.6128783583641052
+End epoch 42
+Start epoch 43
+Epoch 43 train loss: 0.6016896159972175
+Epoch 43 val loss: 0.6116507788499196
+End epoch 43
+Start epoch 44
+Epoch 44 train loss: 0.6013006961951821
+Epoch 44 val loss: 0.611912335952123
+End epoch 44
+Start epoch 45
+Epoch 45 train loss: 0.6009537825139902
+Epoch 45 val loss: 0.6115624745686848
+End epoch 45
+Start epoch 46
+Epoch 46 train loss: 0.6006836340589038
+Epoch 46 val loss: 0.6107467651367188
+End epoch 46
+Start epoch 47
+Epoch 47 train loss: 0.6005617758985293
+Epoch 47 val loss: 0.6134709179401397
+End epoch 47
+Start epoch 48
+Epoch 48 train loss: 0.6005064062142776
+Epoch 48 val loss: 0.611983581384023
+End epoch 48
+Start epoch 49
+Epoch 49 train loss: 0.5999590683791597
+Epoch 49 val loss: 0.6102734645207722
+End epoch 49
+Start epoch 50
+Epoch 50 train loss: 0.5995560737989717
+Epoch 50 val loss: 0.6117199699083964
+End epoch 50
+Start epoch 51
+Epoch 51 train loss: 0.5994816114336757
+Epoch 51 val loss: 0.6131918768088023
+End epoch 51
+Start epoch 52
+Epoch 52 train loss: 0.5989346973976847
+Epoch 52 val loss: 0.6104377170403799
+End epoch 52
+Start epoch 53
+Epoch 53 train loss: 0.5990389545085066
+Epoch 53 val loss: 0.6137411932150523
+End epoch 53
+Start epoch 54
+Epoch 54 train loss: 0.5991067522663182
+Epoch 54 val loss: 0.6123222510019938
+End epoch 54
+Start epoch 55
+Epoch 55 train loss: 0.598350521366475
+stop training
+10 vid_mean
+101521_J559NC
+42410 10610
+Start epoch 0
+Epoch 0 train loss: 0.7943429013332689
+Epoch 0 val loss: 0.7346874887035006
+End epoch 0
+Start epoch 1
+Epoch 1 train loss: 0.7433452710329768
+Epoch 1 val loss: 0.7261543018477303
+End epoch 1
+Start epoch 2
+Epoch 2 train loss: 0.7316040935286556
+Epoch 2 val loss: 0.7193053989183336
+End epoch 2
+Start epoch 3
+Epoch 3 train loss: 0.7240764997809767
+Epoch 3 val loss: 0.7157415151596069
+End epoch 3
+Start epoch 4
+Epoch 4 train loss: 0.7190427234373897
+Epoch 4 val loss: 0.721395173243114
+End epoch 4
+Start epoch 5
+Epoch 5 train loss: 0.7151908928371338
+Epoch 5 val loss: 0.71190174136843
+End epoch 5
+Start epoch 6
+Epoch 6 train loss: 0.7123926077262465
+Epoch 6 val loss: 0.7112269046760741
+End epoch 6
+Start epoch 7
+Epoch 7 train loss: 0.7097768539405731
+Epoch 7 val loss: 0.7112289908386412
+End epoch 7
+Start epoch 8
+Epoch 8 train loss: 0.7078894811222353
+Epoch 8 val loss: 0.7242415150006613
+End epoch 8
+Start epoch 9
+Epoch 9 train loss: 0.7055040436336794
+Epoch 9 val loss: 0.7079406593527112
+End epoch 9
+Start epoch 10
+Epoch 10 train loss: 0.7037659937358764
+Epoch 10 val loss: 0.7206172687666756
+End epoch 10
+Start epoch 11
+Epoch 11 train loss: 0.7024212641170225
+Epoch 11 val loss: 0.7096398501169114
+End epoch 11
+Start epoch 12
+Epoch 12 train loss: 0.7007790505886078
+Epoch 12 val loss: 0.708214011930284
+End epoch 12
+Start epoch 13
+Epoch 13 train loss: 0.6992510277104665
+Epoch 13 val loss: 0.7047635331040337
+End epoch 13
+Start epoch 14
+Epoch 14 train loss: 0.6979701350252312
+Epoch 14 val loss: 0.7090895686830793
+End epoch 14
+Start epoch 15
+Epoch 15 train loss: 0.6968491030744759
+Epoch 15 val loss: 0.7041132819084894
+End epoch 15
+Start epoch 16
+Epoch 16 train loss: 0.6958733710897974
+Epoch 16 val loss: 0.7057729462782542
+End epoch 16
+Start epoch 17
+Epoch 17 train loss: 0.6947181199688509
+Epoch 17 val loss: 0.7090660347825005
+End epoch 17
+Start epoch 18
+Epoch 18 train loss: 0.6938677868211126
+Epoch 18 val loss: 0.7044081475053515
+End epoch 18
+Start epoch 19
+Epoch 19 train loss: 0.6926757337817226
+Epoch 19 val loss: 0.7046574694769723
+End epoch 19
+Start epoch 20
+Epoch 20 train loss: 0.6920580924993538
+Epoch 20 val loss: 0.7031538018158504
+End epoch 20
+Start epoch 21
+Epoch 21 train loss: 0.6913457581077713
+Epoch 21 val loss: 0.7031958685034797
+End epoch 21
+Start epoch 22
+Epoch 22 train loss: 0.6907705793897789
+Epoch 22 val loss: 0.7068338919253576
+End epoch 22
+Start epoch 23
+Epoch 23 train loss: 0.6899050355675709
+Epoch 23 val loss: 0.7030255964824131
+End epoch 23
+Start epoch 24
+Epoch 24 train loss: 0.6890921915870115
+Epoch 24 val loss: 0.7030978316352481
+End epoch 24
+Start epoch 25
+Epoch 25 train loss: 0.6882672471454344
+Epoch 25 val loss: 0.7022705205849239
+End epoch 25
+Start epoch 26
+Epoch 26 train loss: 0.6880901739539871
+Epoch 26 val loss: 0.7019455560616085
+End epoch 26
+Start epoch 27
+Epoch 27 train loss: 0.6872500112975937
+Epoch 27 val loss: 0.7039718854995001
+End epoch 27
+Start epoch 28
+Epoch 28 train loss: 0.6867159892277546
+Epoch 28 val loss: 0.7018146983214787
+End epoch 28
+Start epoch 29
+Epoch 29 train loss: 0.6866205973797533
+Epoch 29 val loss: 0.7028634065673465
+End epoch 29
+Start epoch 30
+Epoch 30 train loss: 0.6860449881438749
+Epoch 30 val loss: 0.7024102750278655
+End epoch 30
+Start epoch 31
+Epoch 31 train loss: 0.6853988195758268
+Epoch 31 val loss: 0.7018652288686662
+End epoch 31
+Start epoch 32
+Epoch 32 train loss: 0.6852188720760575
+Epoch 32 val loss: 0.704216962768918
+End epoch 32
+Start epoch 33
+Epoch 33 train loss: 0.6847538556679186
+Epoch 33 val loss: 0.7054403424263
+End epoch 33
+Start epoch 34
+Epoch 34 train loss: 0.6845994261373957
+Epoch 34 val loss: 0.700801092953909
+End epoch 34
+Start epoch 35
+Epoch 35 train loss: 0.6836784891335361
+Epoch 35 val loss: 0.7074884531043825
+End epoch 35
+Start epoch 36
+Epoch 36 train loss: 0.683623501694346
+Epoch 36 val loss: 0.7021852391106742
+End epoch 36
+Start epoch 37
+Epoch 37 train loss: 0.6833031403731151
+Epoch 37 val loss: 0.7039306192171007
+End epoch 37
+Start epoch 38
+Epoch 38 train loss: 0.6827160909951452
+Epoch 38 val loss: 0.7052654184046245
+End epoch 38
+Start epoch 39
+Epoch 39 train loss: 0.6825870469392065
+Epoch 39 val loss: 0.7022667683306194
+End epoch 39
+Start epoch 40
+Epoch 40 train loss: 0.682154446122158
+stop training
+10 vid_mean
+101521_J559NC
+42410 10610
+Start epoch 0
+Epoch 0 train loss: 0.7959143393729107
+Epoch 0 val loss: 0.7351115260805402
+End epoch 0
+Start epoch 1
+Epoch 1 train loss: 0.7432212685964193
+Epoch 1 val loss: 0.7260590777510688
+End epoch 1
+Start epoch 2
+Epoch 2 train loss: 0.7324188875864788
+Epoch 2 val loss: 0.7177096051829202
+End epoch 2
+Start epoch 3
+Epoch 3 train loss: 0.723574382353978
+Epoch 3 val loss: 0.7169175233159747
+End epoch 3
+Start epoch 4
+Epoch 4 train loss: 0.7165533860763872
+Epoch 4 val loss: 0.715462368159067
+End epoch 4
+Start epoch 5
+Epoch 5 train loss: 0.7125667423368937
+Epoch 5 val loss: 0.7080159414382208
+End epoch 5
+Start epoch 6
+Epoch 6 train loss: 0.7086568557354341
+Epoch 6 val loss: 0.7113343761080787
+End epoch 6
+Start epoch 7
+Epoch 7 train loss: 0.7054279701537397
+Epoch 7 val loss: 0.7057334624585652
+End epoch 7
+Start epoch 8
+Epoch 8 train loss: 0.7031334200537348
+Epoch 8 val loss: 0.70707021015031
+End epoch 8
+Start epoch 9
+Epoch 9 train loss: 0.7009917063167296
+Epoch 9 val loss: 0.7030688311372485
+End epoch 9
+Start epoch 10
+Epoch 10 train loss: 0.6984579268708286
+Epoch 10 val loss: 0.7139527911231631
+End epoch 10
+Start epoch 11
+Epoch 11 train loss: 0.6967953310673496
+Epoch 11 val loss: 0.6992952468849364
+End epoch 11
+Start epoch 12
+Epoch 12 train loss: 0.6948118091347706
+Epoch 12 val loss: 0.7060761338188535
+End epoch 12
+Start epoch 13
+Epoch 13 train loss: 0.6938705340207342
+Epoch 13 val loss: 0.701655075663612
+End epoch 13
+Start epoch 14
+Epoch 14 train loss: 0.6915556950023375
+Epoch 14 val loss: 0.6966084653422946
+End epoch 14
+Start epoch 15
+Epoch 15 train loss: 0.6902980840349772
+Epoch 15 val loss: 0.693711153098515
+End epoch 15
+Start epoch 16
+Epoch 16 train loss: 0.6892780851886933
+Epoch 16 val loss: 0.6958869284107572
+End epoch 16
+Start epoch 17
+Epoch 17 train loss: 0.6882315532988813
+Epoch 17 val loss: 0.7081424111411685
+End epoch 17
+Start epoch 18
+Epoch 18 train loss: 0.6867219956524401
+Epoch 18 val loss: 0.6924752124718258
+End epoch 18
+Start epoch 19
+Epoch 19 train loss: 0.6857970543654568
+Epoch 19 val loss: 0.6930077303023565
+End epoch 19
+Start epoch 20
+Epoch 20 train loss: 0.6847252432840416
+Epoch 20 val loss: 0.6915699995699383
+End epoch 20
+Start epoch 21
+Epoch 21 train loss: 0.6841734482581356
+Epoch 21 val loss: 0.6910644968350729
+End epoch 21
+Start epoch 22
+Epoch 22 train loss: 0.6829200088977814
+Epoch 22 val loss: 0.6909841767379216
+End epoch 22
+Start epoch 23
+Epoch 23 train loss: 0.6825571268437857
+Epoch 23 val loss: 0.6915636048430488
+End epoch 23
+Start epoch 24
+Epoch 24 train loss: 0.6815418888287372
+Epoch 24 val loss: 0.6953746165548053
+End epoch 24
+Start epoch 25
+Epoch 25 train loss: 0.6810035472174725
+Epoch 25 val loss: 0.6934732113565717
+End epoch 25
+Start epoch 26
+Epoch 26 train loss: 0.6806771360247968
+Epoch 26 val loss: 0.6908350686232249
+End epoch 26
+Start epoch 27
+Epoch 27 train loss: 0.6798442928905947
+Epoch 27 val loss: 0.6890278770810082
+End epoch 27
+Start epoch 28
+Epoch 28 train loss: 0.6791236404194889
+Epoch 28 val loss: 0.6881704713617053
+End epoch 28
+Start epoch 29
+Epoch 29 train loss: 0.6784726672143822
+Epoch 29 val loss: 0.689144165742965
+End epoch 29
+Start epoch 30
+Epoch 30 train loss: 0.6784750898200346
+Epoch 30 val loss: 0.6882557272911072
+End epoch 30
+Start epoch 31
+Epoch 31 train loss: 0.6781976693365948
+Epoch 31 val loss: 0.6886946743442899
+End epoch 31
+Start epoch 32
+Epoch 32 train loss: 0.6774495689265699
+Epoch 32 val loss: 0.6884335109165737
+End epoch 32
+Start epoch 33
+Epoch 33 train loss: 0.6765590956412166
+Epoch 33 val loss: 0.6905898395038786
+End epoch 33
+Start epoch 34
+Epoch 34 train loss: 0.6767417091921152
+Epoch 34 val loss: 0.6875848088945661
+End epoch 34
+Start epoch 35
+Epoch 35 train loss: 0.6757829139031559
+Epoch 35 val loss: 0.6899401985463642
+End epoch 35
+Start epoch 36
+Epoch 36 train loss: 0.6756320829132954
+Epoch 36 val loss: 0.6907903410139538
+End epoch 36
+Start epoch 37
+Epoch 37 train loss: 0.6754625791526703
+Epoch 37 val loss: 0.6912693140052614
+End epoch 37
+Start epoch 38
+Epoch 38 train loss: 0.6748329605682787
+Epoch 38 val loss: 0.6901865303516388
+End epoch 38
+Start epoch 39
+Epoch 39 train loss: 0.6747224144188755
+Epoch 39 val loss: 0.6859250466028849
+End epoch 39
+Start epoch 40
+Epoch 40 train loss: 0.674586738089481
+Epoch 40 val loss: 0.6865028426760719
+End epoch 40
+Start epoch 41
+Epoch 41 train loss: 0.6740658757198288
+Epoch 41 val loss: 0.6875234828108833
+End epoch 41
+Start epoch 42
+Epoch 42 train loss: 0.6735807104283068
+Epoch 42 val loss: 0.6859065535522643
+End epoch 42
+Start epoch 43
+Epoch 43 train loss: 0.6731538097542452
+Epoch 43 val loss: 0.6863923839160374
+End epoch 43
+Start epoch 44
+Epoch 44 train loss: 0.6735036426998047
+Epoch 44 val loss: 0.6886052120299566
+End epoch 44
+Start epoch 45
+Epoch 45 train loss: 0.6728082880916366
+Epoch 45 val loss: 0.6866833993366787
+End epoch 45
+Start epoch 46
+Epoch 46 train loss: 0.6725526304848223
+Epoch 46 val loss: 0.684894608599799
+End epoch 46
+Start epoch 47
+Epoch 47 train loss: 0.6720058587660273
+Epoch 47 val loss: 0.6867579193342299
+End epoch 47
+Start epoch 48
+Epoch 48 train loss: 0.6720160224351538
+Epoch 48 val loss: 0.686049589088985
+End epoch 48
+Start epoch 49
+Epoch 49 train loss: 0.6716854245547789
+Epoch 49 val loss: 0.6848352892058236
+End epoch 49
+Start epoch 50
+Epoch 50 train loss: 0.6716967526688633
+Epoch 50 val loss: 0.688251413050152
+End epoch 50
+Start epoch 51
+Epoch 51 train loss: 0.6715292801339943
+Epoch 51 val loss: 0.6853398694878533
+End epoch 51
+Start epoch 52
+Epoch 52 train loss: 0.6709696593054806
+Epoch 52 val loss: 0.6852500424498603
+End epoch 52
+Start epoch 53
+Epoch 53 train loss: 0.6709077652678432
+Epoch 53 val loss: 0.68606341168994
+End epoch 53
+Start epoch 54
+Epoch 54 train loss: 0.6707146803298628
+Epoch 54 val loss: 0.6890732333773658
+End epoch 54
+Start epoch 55
+Epoch 55 train loss: 0.6704285367425665
+Epoch 55 val loss: 0.6846010770116534
+End epoch 55
+Start epoch 56
+Epoch 56 train loss: 0.6705110055136393
+Epoch 56 val loss: 0.6861417265165419
+End epoch 56
+Start epoch 57
+Epoch 57 train loss: 0.6704859489417938
+Epoch 57 val loss: 0.6921827438331786
+End epoch 57
+Start epoch 58
+Epoch 58 train loss: 0.6699950310839228
+Epoch 58 val loss: 0.6844485742705209
+End epoch 58
+Start epoch 59
+Epoch 59 train loss: 0.6697139686130615
+Epoch 59 val loss: 0.6862642239956629
+End epoch 59
+Start epoch 60
+Epoch 60 train loss: 0.6694031817367277
+Epoch 60 val loss: 0.6838410482520149
+End epoch 60
+Start epoch 61
+Epoch 61 train loss: 0.6694097748721939
+Epoch 61 val loss: 0.68393588917596
+End epoch 61
+Start epoch 62
+Epoch 62 train loss: 0.6690370533839766
+Epoch 62 val loss: 0.6849116413366227
+End epoch 62
+Start epoch 63
+Epoch 63 train loss: 0.669019415795085
+Epoch 63 val loss: 0.6846176016898382
+End epoch 63
+Start epoch 64
+Epoch 64 train loss: 0.6687061729201351
+Epoch 64 val loss: 0.6849259365172613
+End epoch 64
+Start epoch 65
+Epoch 65 train loss: 0.668866578713957
+Epoch 65 val loss: 0.6853659422624678
+End epoch 65
+Start epoch 66
+Epoch 66 train loss: 0.6683593571904194
+stop training
+10 vid_mean
+110421_J569LT
+32940 8240
+Start epoch 0
+Epoch 0 train loss: 0.8157292068466659
+Epoch 0 val loss: 0.7692931438937332
+End epoch 0
+Start epoch 1
+Epoch 1 train loss: 0.7725933489873428
+Epoch 1 val loss: 0.7612250953009634
+End epoch 1
+Start epoch 2
+Epoch 2 train loss: 0.7598497308501901
+Epoch 2 val loss: 0.7578551028714036
+End epoch 2
+Start epoch 3
+Epoch 3 train loss: 0.7507734206295753
+Epoch 3 val loss: 0.7530743660348834
+End epoch 3
+Start epoch 4
+Epoch 4 train loss: 0.7442351482635321
+Epoch 4 val loss: 0.7529250961361509
+End epoch 4
+Start epoch 5
+Epoch 5 train loss: 0.7390092463456384
+Epoch 5 val loss: 0.7500477577700759
+End epoch 5
+Start epoch 6
+Epoch 6 train loss: 0.7344689415406811
+Epoch 6 val loss: 0.748637029618928
+End epoch 6
+Start epoch 7
+Epoch 7 train loss: 0.7311868824700053
+Epoch 7 val loss: 0.7633424202601115
+End epoch 7
+Start epoch 8
+Epoch 8 train loss: 0.7282138466835022
+Epoch 8 val loss: 0.7459758845242587
+End epoch 8
+Start epoch 9
+Epoch 9 train loss: 0.7251320097797601
+Epoch 9 val loss: 0.7535502874489987
+End epoch 9
+Start epoch 10
+Epoch 10 train loss: 0.7231230232142662
+Epoch 10 val loss: 0.7482645601937266
+End epoch 10
+Start epoch 11
+Epoch 11 train loss: 0.7213561733563741
+Epoch 11 val loss: 0.7459412289388252
+End epoch 11
+Start epoch 12
+Epoch 12 train loss: 0.7189451345177584
+Epoch 12 val loss: 0.7539169138128107
+End epoch 12
+Start epoch 13
+Epoch 13 train loss: 0.7177654569463212
+Epoch 13 val loss: 0.7473591313217626
+End epoch 13
+Start epoch 14
+Epoch 14 train loss: 0.7165013320686281
+Epoch 14 val loss: 0.7511849891055714
+End epoch 14
+Start epoch 15
+Epoch 15 train loss: 0.7146992604861888
+Epoch 15 val loss: 0.7481522469809561
+End epoch 15
+Start epoch 16
+Epoch 16 train loss: 0.7140685569408328
+Epoch 16 val loss: 0.7438025330052231
+End epoch 16
+Start epoch 17
+Epoch 17 train loss: 0.7118638767752536
+Epoch 17 val loss: 0.7464119828108585
+End epoch 17
+Start epoch 18
+Epoch 18 train loss: 0.711459944414538
+Epoch 18 val loss: 0.7434677210721102
+End epoch 18
+Start epoch 19
+Epoch 19 train loss: 0.7104463142942089
+Epoch 19 val loss: 0.7485900575464423
+End epoch 19
+Start epoch 20
+Epoch 20 train loss: 0.7091354247211485
+Epoch 20 val loss: 0.7495267716321078
+End epoch 20
+Start epoch 21
+Epoch 21 train loss: 0.7084631337675937
+Epoch 21 val loss: 0.7451643419988228
+End epoch 21
+Start epoch 22
+Epoch 22 train loss: 0.7079269673473151
+Epoch 22 val loss: 0.7527561350302263
+End epoch 22
+Start epoch 23
+Epoch 23 train loss: 0.7064533501632454
+Epoch 23 val loss: 0.7440704865889116
+End epoch 23
+Start epoch 24
+Epoch 24 train loss: 0.7054790013520292
+Epoch 24 val loss: 0.7427723335497307
+End epoch 24
+Start epoch 25
+Epoch 25 train loss: 0.7053218220555505
+Epoch 25 val loss: 0.7469153548731948
+End epoch 25
+Start epoch 26
+Epoch 26 train loss: 0.7043770214383916
+Epoch 26 val loss: 0.7407599073467832
+End epoch 26
+Start epoch 27
+Epoch 27 train loss: 0.7037750838338866
+Epoch 27 val loss: 0.7522873643672827
+End epoch 27
+Start epoch 28
+Epoch 28 train loss: 0.7030875327051148
+Epoch 28 val loss: 0.7541907267137007
+End epoch 28
+Start epoch 29
+Epoch 29 train loss: 0.702359699925711
+Epoch 29 val loss: 0.7403949517192263
+End epoch 29
+Start epoch 30
+Epoch 30 train loss: 0.7021901385728703
+Epoch 30 val loss: 0.7428472945184419
+End epoch 30
+Start epoch 31
+Epoch 31 train loss: 0.7010770708091499
+Epoch 31 val loss: 0.7592232913681956
+End epoch 31
+Start epoch 32
+Epoch 32 train loss: 0.7008785466815151
+Epoch 32 val loss: 0.7431278987364336
+End epoch 32
+Start epoch 33
+Epoch 33 train loss: 0.7010301573331966
+Epoch 33 val loss: 0.7506669398510095
+End epoch 33
+Start epoch 34
+Epoch 34 train loss: 0.6996652294499005
+Epoch 34 val loss: 0.7418775811339869
+End epoch 34
+Start epoch 35
+Epoch 35 train loss: 0.6990310059961422
+stop training
+10 vid_mean
+110421_J569LT
+32940 8240
+Start epoch 0
+Epoch 0 train loss: 0.8169338264206584
+Epoch 0 val loss: 0.7687070839332811
+End epoch 0
+Start epoch 1
+Epoch 1 train loss: 0.7725494430046673
+Epoch 1 val loss: 0.7610528848387978
+End epoch 1
+Start epoch 2
+Epoch 2 train loss: 0.7603697647420011
+Epoch 2 val loss: 0.7598150679559419
+End epoch 2
+Start epoch 3
+Epoch 3 train loss: 0.7531147622322851
+Epoch 3 val loss: 0.7578481869264082
+End epoch 3
+Start epoch 4
+Epoch 4 train loss: 0.7467670884243277
+Epoch 4 val loss: 0.7571851430517255
+End epoch 4
+Start epoch 5
+Epoch 5 train loss: 0.7419522261434748
+Epoch 5 val loss: 0.7545792334007494
+End epoch 5
+Start epoch 6
+Epoch 6 train loss: 0.736853861531546
+Epoch 6 val loss: 0.7622955640157064
+End epoch 6
+Start epoch 7
+Epoch 7 train loss: 0.7333264013593511
+Epoch 7 val loss: 0.7509541710217794
+End epoch 7
+Start epoch 8
+Epoch 8 train loss: 0.7295490175254585
+Epoch 8 val loss: 0.7503706415494283
+End epoch 8
+Start epoch 9
+Epoch 9 train loss: 0.7284528557644334
+Epoch 9 val loss: 0.7450783288840092
+End epoch 9
+Start epoch 10
+Epoch 10 train loss: 0.7258279360542002
+Epoch 10 val loss: 0.7476603226228193
+End epoch 10
+Start epoch 11
+Epoch 11 train loss: 0.7237231005993925
+Epoch 11 val loss: 0.745203005545067
+End epoch 11
+Start epoch 12
+Epoch 12 train loss: 0.7223203066707582
+Epoch 12 val loss: 0.7428002574227073
+End epoch 12
+Start epoch 13
+Epoch 13 train loss: 0.7195220432540242
+Epoch 13 val loss: 0.7431474996335579
+End epoch 13
+Start epoch 14
+Epoch 14 train loss: 0.7184513955153236
+Epoch 14 val loss: 0.7433487538135413
+End epoch 14
+Start epoch 15
+Epoch 15 train loss: 0.715955678344697
+Epoch 15 val loss: 0.739584435116161
+End epoch 15
+Start epoch 16
+Epoch 16 train loss: 0.7150792396345804
+Epoch 16 val loss: 0.7402339938915137
+End epoch 16
+Start epoch 17
+Epoch 17 train loss: 0.7141178546025772
+Epoch 17 val loss: 0.7395709518230322
+End epoch 17
+Start epoch 18
+Epoch 18 train loss: 0.7135260442430659
+Epoch 18 val loss: 0.7386801116394274
+End epoch 18
+Start epoch 19
+Epoch 19 train loss: 0.7117859467055446
+Epoch 19 val loss: 0.7382318359432798
+End epoch 19
+Start epoch 20
+Epoch 20 train loss: 0.7108494389888852
+Epoch 20 val loss: 0.7489226045030536
+End epoch 20
+Start epoch 21
+Epoch 21 train loss: 0.7102959497954494
+Epoch 21 val loss: 0.7420259298700275
+End epoch 21
+Start epoch 22
+Epoch 22 train loss: 0.7089475591977438
+Epoch 22 val loss: 0.7388637607747858
+End epoch 22
+Start epoch 23
+Epoch 23 train loss: 0.7076024810473124
+Epoch 23 val loss: 0.7369514342510339
+End epoch 23
+Start epoch 24
+Epoch 24 train loss: 0.7077505320541618
+Epoch 24 val loss: 0.7351099704251145
+End epoch 24
+Start epoch 25
+Epoch 25 train loss: 0.7065630130065504
+Epoch 25 val loss: 0.7368257515358202
+End epoch 25
+Start epoch 26
+Epoch 26 train loss: 0.7060920757840771
+Epoch 26 val loss: 0.738422402829835
+End epoch 26
+Start epoch 27
+Epoch 27 train loss: 0.7057513950407043
+Epoch 27 val loss: 0.7366452560280309
+End epoch 27
+Start epoch 28
+Epoch 28 train loss: 0.7039895621381065
+Epoch 28 val loss: 0.7378572370066787
+End epoch 28
+Start epoch 29
+Epoch 29 train loss: 0.7038160081981688
+Epoch 29 val loss: 0.7347078847162651
+End epoch 29
+Start epoch 30
+Epoch 30 train loss: 0.7033987997114196
+Epoch 30 val loss: 0.7377644289623607
+End epoch 30
+Start epoch 31
+Epoch 31 train loss: 0.7027209585951281
+Epoch 31 val loss: 0.7472253207004431
+End epoch 31
+Start epoch 32
+Epoch 32 train loss: 0.7019324903340303
+Epoch 32 val loss: 0.7366866668065389
+End epoch 32
+Start epoch 33
+Epoch 33 train loss: 0.701456349949504
+Epoch 33 val loss: 0.7347431526039586
+End epoch 33
+Start epoch 34
+Epoch 34 train loss: 0.7007362047831217
+Epoch 34 val loss: 0.7389119122967576
+End epoch 34
+Start epoch 35
+Epoch 35 train loss: 0.7000848886578582
+Epoch 35 val loss: 0.7342125628933762
+End epoch 35
+Start epoch 36
+Epoch 36 train loss: 0.7003923058509827
+Epoch 36 val loss: 0.7313845916227861
+End epoch 36
+Start epoch 37
+Epoch 37 train loss: 0.6995864736941434
+Epoch 37 val loss: 0.7399396751866196
+End epoch 37
+Start epoch 38
+Epoch 38 train loss: 0.6986633700917858
+Epoch 38 val loss: 0.7365601658821106
+End epoch 38
+Start epoch 39
+Epoch 39 train loss: 0.6983024861461432
+Epoch 39 val loss: 0.7326895251418605
+End epoch 39
+Start epoch 40
+Epoch 40 train loss: 0.6981815607972848
+Epoch 40 val loss: 0.7316107894435073
+End epoch 40
+Start epoch 41
+Epoch 41 train loss: 0.6989876535511756
+Epoch 41 val loss: 0.7354083386334506
+End epoch 41
+Start epoch 42
+Epoch 42 train loss: 0.697328830412192
+stop training

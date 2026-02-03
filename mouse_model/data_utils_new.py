@@ -93,7 +93,7 @@ class MouseDatasetSegNewBehav(Dataset):
             raise ValueError("behav_mode must be one of orig, orig_prod, velo, velo_prod, all, all_prod")
         self.behav_mode = behav_mode
         
-        ROOT_DIR_SEG = "/hdd/aiwenxu/mouse-data-{}-segment-split-70-30-48ms".format(segment_num)
+        ROOT_DIR_SEG = "/home/herbelinluke/Downloads/mouse-data-10-segment-split-70-30-48ms/mouse-data-{}-segment-split-70-30-48ms".format(segment_num)
         data_dir = "{}/{}".format(ROOT_DIR_SEG, file_id)
         
         # firing rate below 3 Hz
@@ -242,7 +242,7 @@ class MouseDatasetSegNewBehavNanInterp(Dataset):
             raise ValueError("behav_mode must be one of orig, orig_prod, velo, velo_prod, all, all_prod")
         self.behav_mode = behav_mode
         
-        ROOT_DIR_SEG = "/hdd/aiwenxu/mouse-data-{}-segment-split-70-30-48ms".format(segment_num)
+        ROOT_DIR_SEG = "/home/herbelinluke/Downloads/mouse-data-10-segment-split-70-30-48ms/mouse-data-{}-segment-split-70-30-48ms".format(segment_num)
         data_dir = "{}/{}".format(ROOT_DIR_SEG, file_id)
         
         # firing rate below 3 Hz

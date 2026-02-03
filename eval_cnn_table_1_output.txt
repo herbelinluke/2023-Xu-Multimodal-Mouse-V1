@@ -1,0 +1,54 @@
+10 vid_mean
+070921_J553RT
+False
+30120 7540
+R2 0.798678
+MSE 0.068889
+mean corr, 0.550+-0.143
+max corr 0.811782
+min corr 0.136613
+10 vid_mean
+070921_J553RT
+True
+30120 7540
+R2 0.815705
+MSE 0.063427
+mean corr, 0.586+-0.136
+max corr 0.846673
+min corr 0.233823
+10 vid_mean
+101521_J559NC
+False
+42410 10610
+R2 0.750938
+MSE 0.095022
+mean corr, 0.504+-0.144
+max corr 0.784771
+min corr 0.180120
+10 vid_mean
+101521_J559NC
+True
+42410 10610
+R2 0.768059
+MSE 0.085662
+mean corr, 0.568+-0.132
+max corr 0.828088
+min corr 0.275979
+10 vid_mean
+110421_J569LT
+False
+32940 8240
+R2 0.285551
+MSE 0.105535
+mean corr, 0.402+-0.162
+max corr 0.713209
+min corr 0.093963
+10 vid_mean
+110421_J569LT
+True
+32940 8240
+R2 0.350097
+MSE 0.095612
+mean corr, 0.454+-0.151
+max corr 0.750583
+min corr 0.196660
