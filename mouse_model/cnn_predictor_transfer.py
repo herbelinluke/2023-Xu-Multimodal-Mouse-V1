@@ -146,7 +146,7 @@ def _legacy_backbone_state_dict(state_dict: dict) -> dict:
 
 
 def load_encoder_backbone_from_checkpoint(
-    model: PredictorTransfer,
+    model: PredictorTransfer | "PredictorTransferMultiReadout",
     state_dict: dict,
 ) -> None:
     """
@@ -168,10 +168,94 @@ def load_encoder_backbone_from_checkpoint(
     model.encoder.backbone.load_state_dict(sub, strict=True)
 
 
-def freeze_encoder_backbone(model: PredictorTransfer) -> None:
+def freeze_encoder_backbone(model: PredictorTransfer | "PredictorTransferMultiReadout") -> None:
     for p in model.encoder.backbone.parameters():
         p.requires_grad = False
 
 
 def trainable_parameters(model: nn.Module):
     return (p for p in model.parameters() if p.requires_grad)
+
+
+class PredictorTransferMultiReadout(nn.Module):
+    """
+    Shared CNN backbone + shifter (optional) + one linear readout per session key.
+    Session keys are strings (e.g. "0","1","2"). Forward pads outputs to max_neurons
+    so batches can mix sessions; use `neuron_mask` for masked loss/metrics.
+    """
+
+    def __init__(self, readout_dims: dict[str, int], use_shifter: bool = False):
+        super().__init__()
+        if not readout_dims:
+            raise ValueError("readout_dims must be non-empty")
+        self.session_keys = sorted(readout_dims.keys(), key=lambda k: int(k))
+        self.readout_dims = {k: int(readout_dims[k]) for k in self.session_keys}
+        self.max_neurons = max(self.readout_dims.values())
+        self.key_to_sid = {k: i for i, k in enumerate(self.session_keys)}
+        self.sid_to_key = {i: k for k, i in self.key_to_sid.items()}
+
+        self.encoder = VisualEncoderTransfer(output_dim=1)
+        flat_dim = self.encoder.readout.in_features
+        for p in self.encoder.readout.parameters():
+            p.requires_grad = False
+        self.readouts = nn.ModuleDict(
+            {k: nn.Linear(flat_dim, self.readout_dims[k]) for k in self.session_keys}
+        )
+
+        self.softplus = nn.Softplus()
+        self.shifter = Shifter()
+        self.use_shifter = use_shifter
+
+    def sid_tensor_to_keys(self, session_ids: torch.Tensor) -> list[str]:
+        return [self.sid_to_key[int(s.item())] for s in session_ids.reshape(-1)]
+
+    def neuron_mask(self, session_ids: torch.Tensor) -> torch.Tensor:
+        """[B, max_neurons] mask of valid output neurons per sample."""
+        dims = torch.tensor(
+            [self.readout_dims[self.sid_to_key[i]] for i in range(len(self.session_keys))],
+            device=session_ids.device,
+        )
+        n = dims[session_ids.reshape(-1).long()]
+        cols = torch.arange(self.max_neurons, device=session_ids.device)
+        return (cols[None, :] < n[:, None]).to(torch.float32)
+
+    def forward(self, images: torch.Tensor, behav: torch.Tensor, session_ids: torch.Tensor):
+        if self.use_shifter:
+            bs = images.size()[0]
+            behav_shifter = torch.concat(
+                (
+                    behav[..., 4].unsqueeze(-1),
+                    behav[..., 3].unsqueeze(-1),
+                    behav[..., 1].unsqueeze(-1),
+                    behav[..., 2].unsqueeze(-1),
+                ),
+                dim=-1,
+            )
+            shift_param = self.shifter(behav_shifter)
+            shift_param = shift_param.reshape(-1, 3)
+            scale_param = torch.ones_like(shift_param[..., 0:2]).to(shift_param.device)
+            affine_mat = get_affine_matrix2d(
+                translations=shift_param[..., 0:2],
+                scale=scale_param,
+                center=torch.repeat_interleave(
+                    torch.tensor([[30, 40]], dtype=torch.float),
+                    bs * 1,
+                    dim=0,
+                ).to(shift_param.device),
+                angle=shift_param[..., 2],
+            )
+            affine_mat = affine_mat[:, :2, :]
+            images = warp_affine(images, affine_mat, dsize=(60, 80))
+
+        feats = self.encoder.backbone(images)
+        b = feats.shape[0]
+        device = feats.device
+        out = torch.zeros(b, self.max_neurons, device=device, dtype=feats.dtype)
+        for sid_int in torch.unique(session_ids).tolist():
+            sid_int = int(sid_int)
+            key = self.sid_to_key[sid_int]
+            n = self.readout_dims[key]
+            m = session_ids.reshape(-1) == sid_int
+            if m.any():
+                out[m, :n] = self.readouts[key](feats[m])
+        return self.softplus(out), self.neuron_mask(session_ids)

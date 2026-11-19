@@ -4,16 +4,15 @@ Data layout: data/{videos,responses,behavior,pupil_center}/{trial_id}.npy, meta/
 Returns (image, behav, responses) compatible with train_cnn_shifter_table_1 training loop.
 
 Raw file axes:
-  responses: (N_neurons, T_bins) – e.g. (7863, 324)
-  behavior:  (N_features, T_bins) – e.g. (2, 324)
-  videos:    (N_frames, H, W)     – e.g. (36, 64, 324)
+  responses: (N_neurons, T) – e.g. (7863, 324)
+  behavior:  (N_features, T) – e.g. (2, 324)
+  videos:    (H, W, T)       – e.g. (36, 64, 324); time is the LAST axis, trailing bins are NaN
 
 vid_frame modes:
-  "mean"      – one sample per trial (mean frame → time-averaged response per neuron).
+  "mean"      – one sample per trial (mean frame over time → time-averaged response per neuron).
   "middle"    – one sample per trial (middle frame → time-averaged response per neuron).
-  "per_frame" – one sample per (trial, frame). Each video frame is paired with the
-                neural responses averaged within that frame's time window.
-                Analogous to the mouse dataset (one frame → one spike vector).
+  "per_frame" – removed: it indexed the first axis (image rows) as frames. Use
+                mouse_model.sensorium_cache.SensoriumCachedDataset instead.
 """
 import os
 import numpy as np
@@ -77,8 +76,8 @@ class SensoriumDataset(Dataset):
     """
     Sensorium dataset.
 
-    vid_frame="mean"/"middle": one sample per trial (original behaviour).
-    vid_frame="per_frame": one sample per (trial, video frame), like the mouse dataset.
+    vid_frame="mean"/"middle": one sample per trial.
+    For one sample per video frame use SensoriumCachedDataset (mouse_model/sensorium_cache.py).
     """
 
     TIER_TRAIN = 0
@@ -94,6 +93,11 @@ class SensoriumDataset(Dataset):
         standardize_responses=True,
         target_size=(60, 80),
     ):
+        if vid_frame == "per_frame":
+            raise ValueError(
+                "SensoriumDataset per_frame treated image rows as frames. Use "
+                "mouse_model.sensorium_cache.build_sensorium_cache + SensoriumCachedDataset."
+            )
         self.root_dir = os.path.expanduser(root_dir)
         self.seq_len = seq_len
         self.vid_frame = vid_frame
@@ -270,7 +274,8 @@ class SensoriumDataset(Dataset):
 
         vid = np.load(os.path.join(root, "data", "videos", f"{trial_id}.npy"))
         if vid.ndim == 3:
-            frame = np.nanmean(vid, axis=0) if self.vid_frame == "mean" else vid[vid.shape[0] // 2]
+            n_valid = int((~np.isnan(vid).any(axis=(0, 1))).sum())
+            frame = np.nanmean(vid, axis=-1) if self.vid_frame == "mean" else vid[:, :, n_valid // 2]
         else:
             frame = np.asarray(vid)
         frame = resize_video_frame(frame, self.target_size)

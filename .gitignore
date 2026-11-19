@@ -1,3 +1,7 @@
+# Preprocessed data caches and run checkpoints
+cache/
+runs/**/*.pth
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
