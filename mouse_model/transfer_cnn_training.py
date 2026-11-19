@@ -6,18 +6,23 @@ import time
 import numpy as np
 import torch
 import torch.nn as nn
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, RandomSampler
 
 from mouse_model.metrics import StreamingNeuronMetrics
 
 from .cnn_predictor_transfer import PredictorTransfer, trainable_parameters
 
 
-def make_loader(ds, *, batch_size, shuffle, num_workers, collate_fn=None):
+def make_loader(ds, *, batch_size, shuffle, num_workers, collate_fn=None, min_samples_per_epoch=None):
+    sampler = None
+    if shuffle and min_samples_per_epoch and len(ds) < min_samples_per_epoch:
+        sampler = RandomSampler(ds, replacement=False, num_samples=int(min_samples_per_epoch))
+        shuffle = False
     return DataLoader(
         dataset=ds,
         batch_size=batch_size,
         shuffle=shuffle,
+        sampler=sampler,
         num_workers=num_workers,
         pin_memory=torch.cuda.is_available(),
         persistent_workers=num_workers > 0,
@@ -47,6 +52,8 @@ def train_cnn_transfer(
     num_workers: int = 8,
     freeze_encoder_backbone: bool = False,
     patience: int = 5,
+    min_samples_per_epoch: int | None = None,
+    select_by: str = "val_loss",
     run=None,
 ):
     """
@@ -57,25 +64,33 @@ def train_cnn_transfer(
 
     run: optional RunLogger. When given, per-epoch metrics, summary and per-neuron arrays are
     written to the run folder, and best_val_path defaults to <run>/best_val.pth.
-    Training stops after `patience` + 1 epochs without a new best validation loss.
+    select_by: "val_loss" (lowest Poisson loss) or "val_cor" (highest mean correlation) picks the
+    saved checkpoint; training stops after `patience` + 1 epochs without a new best.
+    min_samples_per_epoch: training sets smaller than this are re-shuffled within an epoch
+    until this many samples are drawn, so validation runs every ~min_samples_per_epoch samples.
     """
+    if select_by not in ("val_loss", "val_cor"):
+        raise ValueError("select_by must be 'val_loss' or 'val_cor'")
     torch.manual_seed(seed)
     if torch.cuda.is_available():
         torch.cuda.manual_seed(seed)
     if run is not None and best_val_path is None:
         best_val_path = run.best_val_path
 
-    train_dataloader = make_loader(train_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers)
+    train_dataloader = make_loader(train_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers,
+                                   min_samples_per_epoch=min_samples_per_epoch)
     val_dataloader = make_loader(val_ds, batch_size=batch_size, shuffle=False, num_workers=num_workers)
 
     optimizer = torch.optim.Adam(trainable_parameters(model), lr=learning_rate)
     if run is not None:
         run.update_config(n_train=len(train_ds), n_val=len(val_ds), batch_size=batch_size,
                           learning_rate=learning_rate, epochs=epochs, patience=patience, seed=seed,
+                          min_samples_per_epoch=min_samples_per_epoch, select_by=select_by,
                           freeze_encoder_backbone=freeze_encoder_backbone, **count_parameters(model))
 
     best_train_loss = np.inf
     best_val_loss = np.inf
+    best_score = -np.inf
     best_epoch = None
     stop_reason = "max_epochs"
     train_loss_list, val_loss_list = [], []
@@ -158,9 +173,10 @@ def train_cnn_transfer(
                 lst.append(None)
 
         val_loss_list.append(epoch_val_loss)
-        improved = epoch_val_loss < best_val_loss
-        if improved:
-            best_val_loss = epoch_val_loss
+        best_val_loss = min(best_val_loss, epoch_val_loss)
+        score = -epoch_val_loss if select_by == "val_loss" else val_cor_list[-1]
+        if np.isfinite(score) and score > best_score:
+            best_score = score
             best_epoch = epoch
             ct = 0
             if best_val_path:
@@ -184,9 +200,9 @@ def train_cnn_transfer(
 
         if m is not None:
             print(
-                "Epoch {} ({:.0f}s) train {:.4f} | val {:.4f} corr {:.4f} R2 {:.4f} EV {:.4f} bits/spike {:.4f} "
+                "Epoch {} ({:.0f}s) train {:.4f} | val {:.4f} corr {:.4f} bits/spike {:.4f} "
                 "| valid neurons {}/{}".format(
-                    epoch, epoch_seconds, epoch_train_loss, epoch_val_loss, m["cor"], m["r2"], m["ev"],
+                    epoch, epoch_seconds, epoch_train_loss, epoch_val_loss, m["cor"],
                     m["bits_per_spike"], m["n_valid"], m["n_neurons"]))
         else:
             print("Epoch {} ({:.0f}s) train {:.4f}".format(epoch, epoch_seconds, epoch_train_loss))
@@ -202,8 +218,9 @@ def train_cnn_transfer(
         best = best_epoch if best_epoch is not None else len(val_cor_list) - 1
         run.write_summary({
             "best_epoch": best,
-            "selected_by": "val_loss",
+            "selected_by": select_by,
             "best_val_loss": best_val_loss,
+            "val_loss_at_best": val_loss_list[best] if val_loss_list else None,
             "val_cor_at_best": val_cor_list[best] if val_cor_list else None,
             "max_val_cor": float(np.nanmax(val_cor_list)) if val_cor_list else None,
             "epochs_run": len(train_loss_list),

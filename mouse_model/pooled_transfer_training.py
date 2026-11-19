@@ -37,13 +37,18 @@ def train_cnn_transfer_multi(
     freeze_encoder_backbone: bool = False,
     collate_fn=None,
     patience: int = 5,
+    min_samples_per_epoch: int | None = None,
+    select_by: str = "val_loss",
     run=None,
 ):
     """
     Same return tuple shape as train_cnn_transfer; val correlation is the macro mean
     of per-session mean correlations (each session evaluated on its true neuron count).
     Per-neuron entries are lists with one array per session.
+    select_by: "val_loss" or "val_cor" (macro correlation) picks the checkpoint and early stop.
     """
+    if select_by not in ("val_loss", "val_cor"):
+        raise ValueError("select_by must be 'val_loss' or 'val_cor'")
     torch.manual_seed(seed)
     if torch.cuda.is_available():
         torch.cuda.manual_seed(seed)
@@ -51,7 +56,8 @@ def train_cnn_transfer_multi(
         best_val_path = run.best_val_path
 
     train_dataloader = make_loader(train_ds, batch_size=batch_size, shuffle=True,
-                                   num_workers=num_workers, collate_fn=collate_fn)
+                                   num_workers=num_workers, collate_fn=collate_fn,
+                                   min_samples_per_epoch=min_samples_per_epoch)
     val_dataloader = make_loader(val_ds, batch_size=batch_size, shuffle=False,
                                  num_workers=num_workers, collate_fn=collate_fn)
 
@@ -60,10 +66,12 @@ def train_cnn_transfer_multi(
         run.update_config(n_train=len(train_ds), n_val=len(val_ds), batch_size=batch_size,
                           learning_rate=learning_rate, epochs=epochs, patience=patience, seed=seed,
                           freeze_encoder_backbone=freeze_encoder_backbone,
+                          min_samples_per_epoch=min_samples_per_epoch, select_by=select_by,
                           readout_dims=model.readout_dims, **count_parameters(model))
 
     best_train_loss = np.inf
     best_val_loss = np.inf
+    best_score = -np.inf
     best_epoch = None
     stop_reason = "max_epochs"
     train_loss_list, val_loss_list = [], []
@@ -156,8 +164,10 @@ def train_cnn_transfer_multi(
                 lst.append(None)
 
         val_loss_list.append(epoch_val_loss)
-        if epoch_val_loss < best_val_loss:
-            best_val_loss = epoch_val_loss
+        best_val_loss = min(best_val_loss, epoch_val_loss)
+        score = -epoch_val_loss if select_by == "val_loss" else val_cor_list[-1]
+        if np.isfinite(score) and score > best_score:
+            best_score = score
             best_epoch = epoch
             ct = 0
             if best_val_path:
@@ -201,8 +211,9 @@ def train_cnn_transfer_multi(
         best = best_epoch if best_epoch is not None else len(val_cor_list) - 1
         run.write_summary({
             "best_epoch": best,
-            "selected_by": "val_loss",
+            "selected_by": select_by,
             "best_val_loss": best_val_loss,
+            "val_loss_at_best": val_loss_list[best] if val_loss_list else None,
             "val_cor_at_best": val_cor_list[best] if val_cor_list else None,
             "max_val_cor": float(np.nanmax(val_cor_list)) if val_cor_list else None,
             "epochs_run": len(train_loss_list),
