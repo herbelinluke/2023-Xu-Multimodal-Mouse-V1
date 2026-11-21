@@ -3,6 +3,8 @@
 Status as of 2026-11-20. This file summarizes the scratch learning-curve sweep, the replication across animals and seeds, and the transfer runs. All numbers come from the run folders in `runs/` (config, metrics and summary are committed) and from `research/sensorium_rescore_real_trials.json`.
 
 > **Read this first: the Sensorium numbers are contaminated.** In the five Sensorium 2023 competition sessions used here, every `live_test_*` and `final_test_*` trial has its responses withheld; on disk they are exactly zero. The Sensorium cache and `sensorium_trial_split` use all trials, so 41-44% of every full-data Sensorium training set (34-69% of the smaller subsets) and 39-46% of every validation set are frames whose target is zero. The Sensorium models were therefore trained partly on fake silence, the "minutes" axis overstates real training data by about 1.8x, and the stored validation correlations are measured on a mixed set. Section 5.2 re-scores the existing checkpoints on real-response validation trials only, which lowers the across-session means by 0.04-0.05 at every training size. A clean comparison needs the Sensorium runs retrained on `train` and `oracle` trials only (section 9). The mouse numbers are not affected.
+>
+> **Update (2026-11-20, later): the code is fixed, but the runs have not been redone yet.** Withheld trials are now detected from the data and excluded by `sensorium_trial_split` and `build_pooled_sensorium_datasets`. New Sensorium runs carry `response_filter="real_only"` in their config, so they never collide with the old ones, and `plot_runs.ipynb` hides the old ones. Every Sensorium and transfer number below is still the contaminated value until the sweep is rerun. `research/RERUN_CLEAN.md` has the exact commands, including the new pooled multi-readout runs.
 
 ## 1. Question
 
@@ -37,7 +39,7 @@ Run folders from the first sweep on the default animals are named without a sess
 | Video | Head-camera `vid_mean`, 60 x 80 | 36 x 64, resized to 60 x 80 |
 | Behavior channels | speed, pitch, roll, phi, theta, eye radius (and gz, not loaded) | pupil dilation, running speed, pupil center x and y |
 | Recording structure | Xu's 70/30 file split, 10 segments; we use only the "train" files: 30.1, 42.4, 33.0 min. The Xu "test" files (12.9, 18.2, 14.1 min) are unused. | 682-739 trials of 8-14 s (240-414 frames). Video for about 112-121 min per session, but only `train` and `oracle` trials (about 406 per session, 64-70 min) carry real responses. |
-| Our split | 12 s contiguous blocks, 30% of blocks to validation, 2-sample gap around each validation block | Whole trials, 30% to validation, over all tiers (this is the contamination described above) |
+| Our split | 12 s contiguous blocks, 30% of blocks to validation, 2-sample gap around each validation block | Whole trials, 30% to validation, over all tiers in the runs reported here (the contamination described above); since the fix, only trials with real responses |
 | Training / validation size at "full" | 20.6 / 9.4, 28.9 / 13.4, 22.9 / 9.9 min | 78-84 / 33-36 nominal min, of which 45-49 / 19-22 min have real responses |
 | Response lag | Target is the bin after the frame (`predict_offset=1`, 48 ms) | Target is 2 frames after the frame (67 ms; a ridge lag sweep peaked at 2-3) |
 
@@ -163,7 +165,7 @@ A frozen foreign backbone loses about 0.06 in both directions. Fine-tuning match
 
 All reported numbers come from separate single-animal models. `run_one` in `train_cnn_runs.ipynb` builds one `PredictorTransfer` per (session, size, seed), with its own backbone and its own readout sized to that animal's neurons, and trains it only on that session. The learning-curve table averages the per-animal best validation correlations across animals. "Sensorium full from scratch" means all training trials of one session, not all sessions pooled.
 
-The repository also has pooled multi-animal code: `PredictorTransferMultiReadout` (one shared backbone with one linear readout per session), `train_cnn_transfer_multi` (in `mouse_model/pooled_transfer_training.py`), `build_pooled_mouse_datasets` and `build_pooled_sensorium_datasets` (in `mouse_model/pooled_data.py`), and the notebook `train_cnn_pooled_mice_sensorium.ipynb`. None of the results here use it. Note that `build_pooled_sensorium_datasets` uses the same all-tier split and has the same withheld-trial problem.
+The repository also has pooled multi-animal code: `PredictorTransferMultiReadout` (one shared backbone with one linear readout per session), `train_cnn_transfer_multi` (in `mouse_model/pooled_transfer_training.py`), `build_pooled_mouse_datasets` and `build_pooled_sensorium_datasets` (in `mouse_model/pooled_data.py`), and the notebook `train_cnn_pooled_mice_sensorium.ipynb`. None of the results here use it. `build_pooled_sensorium_datasets` had the same withheld-trial problem; it is now fixed. The pooled runs are wired into `train_cnn_runs.ipynb` for the rerun.
 
 ### 6.2 Are the same neurons measured across animals?
 
@@ -197,16 +199,20 @@ Section 3.1 gives the per-session comparison. Overall:
 ## 8. How to reproduce
 
 1. Set up the repo `venv` with CUDA, the Xu data in `~/Downloads/mouse-data-10-segment-split-70-30-48ms/`, and the extracted Sensorium sessions in `~/Downloads/dynamic*/`.
-2. Run `train_cnn_runs.ipynb` top to bottom. The first use of each Sensorium session builds its cache (about 2 minutes and 5 GB). Finished runs are skipped, so the notebook can be re-run after an interruption. For long sweeps we executed the notebook's code cells in order in one namespace from a small runner script, started with `nohup venv/bin/python -u run_nb.py >> runs/sweep_replication.log 2>&1 &`. The runner inserts the repo root into `sys.path` and changes to it. Logs are git-ignored.
-3. Run `plot_runs.ipynb` (headless: `MPLBACKEND=Agg`). It prints the learning-curve table and fit, and writes the figures to `research/run_figures/`.
-4. Run `venv/bin/python research/rescore_sensorium_real_trials.py` (GPU inference only, about 5 minutes). It writes `research/sensorium_rescore_real_trials.json`.
+2. Run `train_cnn_runs.ipynb` top to bottom. The first use of each Sensorium session builds its cache (about 2 minutes and 5 GB). Finished runs are skipped, so the notebook can be re-run after an interruption. For long sweeps, use `nohup venv/bin/python -u research/run_notebook.py train_cnn_runs.ipynb >> runs/sweep_clean.log 2>&1 &`. Logs are git-ignored. `research/RERUN_CLEAN.md` describes the clean rerun.
+3. Run `plot_runs.ipynb`. Headless: `MPLBACKEND=Agg venv/bin/python research/run_notebook.py plot_runs.ipynb`. It prints the learning-curve table and fit, and writes the figures to `research/run_figures/`.
+4. Run `venv/bin/python research/rescore_sensorium_real_trials.py` (GPU inference only, about 5 minutes). It re-scores the pre-fix runs and writes `research/sensorium_rescore_real_trials.json`.
 
 ## 9. Next steps
 
-1. **Fix the Sensorium split.** Restrict the cache or the split to `train` and `oracle` trials. Optionally hold out `oracle` as a fixed test set. Then rerun the 35 Sensorium scratch runs and the 4 transfer runs. Use real-response minutes on the x-axis and add a guard that rejects all-zero trials.
+1. **Rerun Sensorium on real trials.** The split fix is done in code. Next, rerun the 35 Sensorium scratch runs and the 4 transfer runs as described in `research/RERUN_CLEAN.md`; minutes now count real-response data only. Optionally, hold out `oracle` as a fixed test set later.
 2. **Add an untouched test set.** Evaluate the selected checkpoints on the Xu test files and on the Sensorium oracle trials, so that model selection and reporting use different data.
 3. **Add more seeds.** Run seeds 1 and 2 for at least two Sensorium sessions and for the other two mice.
-4. **Train pooled models.** Train `PredictorTransferMultiReadout` across the 3 mice and across the 5 (later 10) Sensorium sessions. This asks whether a shared core trained on many animals lowers the per-animal data needed for a new animal. That is the more relevant data-efficiency question for the free-moving data.
+4. **Train pooled models.** These are set up in the last section of `train_cnn_runs.ipynb` and launch with the rerun:
+   - The 3 mice, sharing one core with 3 readouts.
+   - Sensorium sessions 29515 and 29623 (the 5-session run is commented out because of RAM).
+
+   Each session keeps its single-animal split, so `plot_runs.ipynb` can print pooled vs single-animal correlation per session. A follow-up is pooled training at reduced minutes per animal. That asks whether a shared core trained on many animals lowers the per-animal data needed for a new animal, which is the more relevant data-efficiency question for the free-moving data.
 5. **Add the other five Sensorium mice.** Extract `dynamic29156` and download the remaining four of that set. All their tiers have responses, which roughly doubles the usable minutes per mouse.
 6. **Try a better readout.** Replace the dense readout with a factorized or Gaussian readout and try a larger or temporal core once pooled data is available.
 7. **Add behavior.** Re-enable the shifter and behavior inputs on the mouse data to measure how much the active, free-moving setting gains beyond vision.

@@ -13,7 +13,13 @@ build_sensorium_cache() reads every trial once and writes:
   responses.npy  (N, n_neurons) float16 divided by per-neuron std, clipped at 0
   behavior.npy   (N, 6) float32         [speed, 0, 0, pupil_x, pupil_y, dilation]
   trial_id.npy, frame_idx.npy (N,) int32
+  trial_has_responses.npy (n_trials,) bool, aligned with meta["trials"]
   meta.json
+
+The competition sessions (hash 9b4f6a...) withhold responses for live_test_* and final_test_*
+trials: they are stored as all zeros. Those trials are detected from the data (not from the tier
+name, because other releases ship real responses in the same tiers) and are marked in
+trial_has_responses.npy; SensoriumCachedDataset.sample_has_responses exposes this per sample.
 """
 from __future__ import annotations
 
@@ -27,6 +33,7 @@ from scipy.ndimage import zoom
 from torch.utils.data import Dataset
 
 CACHE_VERSION = 1
+HAS_RESPONSES_FILE = "trial_has_responses.npy"
 
 
 def default_cache_dir(root_dir: str, target_size=(60, 80), norm_mode: str = "trial") -> str:
@@ -110,6 +117,7 @@ def build_sensorium_cache(
     behav = np.zeros((n_total, 6), dtype=np.float32)
     trial_id = np.zeros(n_total, dtype=np.int32)
     frame_idx = np.zeros(n_total, dtype=np.int32)
+    has_responses = np.zeros(len(trials), dtype=bool)
 
     t0 = time.time()
     row = 0
@@ -123,6 +131,7 @@ def build_sensorium_cache(
         resp = np.load(os.path.join(root_dir, "data", "responses", f"{t}.npy"))[:, :T].T / resp_std
         resp = np.maximum(np.nan_to_num(resp, nan=0.0, posinf=0.0, neginf=0.0), 0.0)
         resp_mm[row:row + T] = resp.astype(np.float16)
+        has_responses[k] = bool(np.any(resp > 0))
 
         b_path = os.path.join(root_dir, "data", "behavior", f"{t}.npy")
         p_path = os.path.join(root_dir, "data", "pupil_center", f"{t}.npy")
@@ -147,6 +156,7 @@ def build_sensorium_cache(
     np.save(os.path.join(cache_dir, "behavior.npy"), behav)
     np.save(os.path.join(cache_dir, "trial_id.npy"), trial_id)
     np.save(os.path.join(cache_dir, "frame_idx.npy"), frame_idx)
+    np.save(os.path.join(cache_dir, HAS_RESPONSES_FILE), has_responses)
 
     tiers_path = os.path.join(root_dir, "meta", "trials", "tiers.npy")
     tiers = np.load(tiers_path).tolist() if os.path.isfile(tiers_path) else None
@@ -169,6 +179,26 @@ def build_sensorium_cache(
     return cache_dir
 
 
+def trial_has_responses(cache_dir: str) -> np.ndarray:
+    """(n_trials,) bool aligned with meta["trials"]: False where every response is zero (withheld).
+
+    Caches built before this flag existed are scanned once (about a minute) and the result is saved.
+    """
+    path = os.path.join(cache_dir, HAS_RESPONSES_FILE)
+    if os.path.isfile(path):
+        return np.load(path)
+    with open(os.path.join(cache_dir, "meta.json")) as f:
+        meta = json.load(f)
+    resp = np.load(os.path.join(cache_dir, "responses.npy"), mmap_mode="r")
+    out = np.zeros(len(meta["trials"]), dtype=bool)
+    row = 0
+    for k, T in enumerate(meta["trial_lengths"]):
+        out[k] = bool(np.any(np.asarray(resp[row:row + T]) > 0))
+        row += T
+    np.save(path, out)
+    return out
+
+
 class SensoriumCachedDataset(Dataset):
     """
     One sample per video frame, read from build_sensorium_cache() output.
@@ -176,6 +206,9 @@ class SensoriumCachedDataset(Dataset):
     The response target for frame t is the response bin at t + response_lag within the
     same trial (frames without a target are dropped). Returns (image, behav, spikes) with
     shapes (1, 1, H, W), (1, 6), (n_neurons,) like the mouse dataset with seq_len=1.
+
+    All trials are indexed, including withheld ones; sample_has_responses / sample_tier mark them
+    so splits can exclude them (sensorium_trial_split does by default).
     """
 
     def __init__(self, cache_dir: str, response_lag: int = 1):
@@ -191,6 +224,12 @@ class SensoriumCachedDataset(Dataset):
         trial_len = np.array([lengths[t] for t in self.trial_id_all])
         self.rows = np.nonzero(self.frame_idx_all + self.response_lag < trial_len)[0]
         self.trial_of_sample = self.trial_id_all[self.rows]
+
+        has = dict(zip(self.meta["trials"], trial_has_responses(cache_dir).tolist()))
+        tiers = self.meta.get("tiers") or ["unknown"] * len(self.meta["trials"])
+        tier = dict(zip(self.meta["trials"], tiers))
+        self.sample_has_responses = np.array([has[t] for t in self.trial_of_sample], dtype=bool)
+        self.sample_tier = np.array([tier[t] for t in self.trial_of_sample])
         self._frames = None
         self._responses = None
 

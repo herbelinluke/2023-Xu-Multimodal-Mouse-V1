@@ -1,7 +1,9 @@
 """
 Leak-resistant train/val splits.
 
-- Sensorium: whole trials go to train or val (all trials pooled; competition tiers are ignored).
+- Sensorium: whole trials go to train or val. Trials whose responses are withheld (all zeros:
+  live_test_* / final_test_* in the competition sessions) are excluded by default; the remaining
+  tiers are pooled.
 - Mouse: each segment is cut into contiguous time blocks; whole blocks go to train or val,
   and `gap` samples on either side of every val block are dropped from train.
 
@@ -57,20 +59,43 @@ def limit_by_groups(train_idx: np.ndarray, train_groups: np.ndarray, max_samples
     return np.concatenate(picked)
 
 
-def sensorium_trial_split(ds, *, val_frac: float = 0.3, seed: int = 0, max_train_samples: int | None = None):
-    """ds: SensoriumCachedDataset. Returns train_ds, val_ds, info."""
-    groups = ds.trial_of_sample
+def _trials_by_tier(ds, sample_idx: np.ndarray) -> dict:
+    trials = ds.trial_of_sample[sample_idx]
+    tiers = ds.sample_tier[sample_idx]
+    out = {}
+    for tier in np.unique(tiers):
+        out[str(tier)] = int(len(np.unique(trials[tiers == tier])))
+    return out
+
+
+def sensorium_trial_split(ds, *, val_frac: float = 0.3, seed: int = 0, max_train_samples: int | None = None,
+                          exclude_withheld: bool = True):
+    """
+    ds: SensoriumCachedDataset. Returns train_ds, val_ds, info.
+
+    exclude_withheld=True drops trials whose responses are all zero before splitting, so minutes
+    and the val set refer to real responses only. False reproduces the contaminated runs made
+    before 2026-11-20 (configs without response_filter).
+    """
+    candidates = np.arange(len(ds))
+    if exclude_withheld:
+        candidates = candidates[ds.sample_has_responses]
+    groups = ds.trial_of_sample[candidates]
     tr, va = split_by_groups(groups, val_frac, seed)
-    tr_groups = groups[tr]
-    tr = limit_by_groups(tr, tr_groups, max_train_samples, seed)
+    tr = limit_by_groups(candidates[tr], groups[tr], max_train_samples, seed)
+    va = candidates[va]
+    excluded = np.setdiff1d(np.arange(len(ds)), candidates)
     info = {
         "split": "sensorium_by_trial",
+        "response_filter": "real_only" if exclude_withheld else "none",
+        "n_trials_kept_by_tier": _trials_by_tier(ds, candidates),
+        "n_trials_excluded_by_tier": _trials_by_tier(ds, excluded),
         "val_frac": val_frac,
         "seed": seed,
         "n_train": int(len(tr)),
         "n_val": int(len(va)),
-        "n_train_groups": int(len(np.unique(groups[tr]))),
-        "n_val_groups": int(len(np.unique(groups[va]))),
+        "n_train_groups": int(len(np.unique(ds.trial_of_sample[tr]))),
+        "n_val_groups": int(len(np.unique(ds.trial_of_sample[va]))),
         "train_minutes": len(tr) / ds.fps / 60.0,
         "val_minutes": len(va) / ds.fps / 60.0,
         "max_train_samples": max_train_samples,

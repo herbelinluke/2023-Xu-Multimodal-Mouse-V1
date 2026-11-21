@@ -80,6 +80,7 @@ def train_cnn_transfer_multi(
     cor_per_neuron_per_epoch, r2_per_neuron_per_epoch, ev_per_neuron_per_epoch = [], [], []
     n_valid_per_epoch = []
     n_sessions = len(model.session_keys)
+    best_session_cor = None
     ct = 0
     step = 0
     samples_seen = 0
@@ -170,6 +171,8 @@ def train_cnn_transfer_multi(
             best_score = score
             best_epoch = epoch
             ct = 0
+            if session_metrics:
+                best_session_cor = {model.sid_to_key[sid]: sm["cor"] for sid, sm in session_metrics.items()}
             if best_val_path:
                 torch.save(model.state_dict(), best_val_path)
             if run is not None and session_metrics:
@@ -215,6 +218,7 @@ def train_cnn_transfer_multi(
             "best_val_loss": best_val_loss,
             "val_loss_at_best": val_loss_list[best] if val_loss_list else None,
             "val_cor_at_best": val_cor_list[best] if val_cor_list else None,
+            "val_cor_per_session_at_best": best_session_cor,
             "max_val_cor": float(np.nanmax(val_cor_list)) if val_cor_list else None,
             "epochs_run": len(train_loss_list),
             "steps": step,

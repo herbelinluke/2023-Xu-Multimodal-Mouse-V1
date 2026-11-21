@@ -68,12 +68,15 @@ def build_pooled_mouse_datasets(
     split: str = "time_blocks",
     block_len: int = 250,
     gap: int | None = None,
+    seed_offset_per_session: bool = True,
 ):
     """
     Returns train_ds, val_ds, readout_dims (str keys "0","1",...), collate_fn, meta.
 
     split="time_blocks" (default): each mouse uses mouse_time_block_split (whole ~12 s blocks
     go to train or val, with a gap). max_train_samples is divided equally across mice.
+    seed_offset_per_session=False splits every mouse with `seed`, giving the same train/val
+    blocks as a single-animal run with that seed.
     split="random_frames": the earlier per-segment random permutation (adjacent frames leak).
     """
     if split == "time_blocks":
@@ -84,7 +87,8 @@ def build_pooled_mouse_datasets(
         for sid, fid in enumerate(file_ids):
             tr, va, info = mouse_time_block_split(
                 fid, segment_num=segment_num, vid_type=vid_type, seq_len=seq_len,
-                block_len=block_len, val_frac=1.0 - train_ratio_m, gap=gap, seed=seed + sid,
+                block_len=block_len, val_frac=1.0 - train_ratio_m, gap=gap,
+                seed=seed + sid if seed_offset_per_session else seed,
                 max_train_samples=per_mouse_cap,
             )
             readout_dims[str(sid)] = info["num_neurons"]
@@ -247,12 +251,17 @@ def build_pooled_sensorium_datasets(
     split_tag: str = "pooled_sensorium",
     response_lag: int = 1,
     max_train_samples: int | None = None,
+    exclude_withheld: bool = True,
+    seed_offset_per_session: bool = True,
 ):
     """
     One SensoriumCachedDataset per root (cache built on first use), each split by whole
-    trial over all trials (competition tiers ignored). max_train_samples is divided
-    equally across sessions. vid_frame / split_cache_dir / split_tag are accepted for
-    compatibility with older notebooks and ignored.
+    trial with sensorium_trial_split, which drops trials with withheld (all-zero) responses
+    unless exclude_withheld=False. Caches are memory-mapped, so sessions are not loaded
+    into RAM. max_train_samples is divided equally across sessions.
+    seed_offset_per_session=False splits every session with `seed`, giving the same
+    train/val trials as a single-session run with that seed. vid_frame / split_cache_dir /
+    split_tag are accepted for compatibility with older notebooks and ignored.
     """
     if seq_len != 1:
         raise ValueError("Cached Sensorium samples are single frames (seq_len=1)")
@@ -263,8 +272,10 @@ def build_pooled_sensorium_datasets(
     per_session_cap = None if max_train_samples is None else max_train_samples // len(root_dirs)
     for sid, root in enumerate(root_dirs):
         ds = SensoriumCachedDataset(build_sensorium_cache(root), response_lag=response_lag)
-        tr, va, info = sensorium_trial_split(ds, val_frac=1.0 - train_ratio, seed=seed + sid,
-                                             max_train_samples=per_session_cap)
+        tr, va, info = sensorium_trial_split(ds, val_frac=1.0 - train_ratio,
+                                             seed=seed + sid if seed_offset_per_session else seed,
+                                             max_train_samples=per_session_cap,
+                                             exclude_withheld=exclude_withheld)
         info["root_dir"] = root
         readout_dims[str(sid)] = int(ds.num_neurons)
         tagged_tr.append(SessionTagDataset(tr, sid))
@@ -281,6 +292,7 @@ def build_pooled_sensorium_datasets(
         "readout_dims": readout_dims,
         "max_neurons": max_n,
         "split": "sensorium_by_trial",
+        "response_filter": "real_only" if exclude_withheld else "none",
         "response_lag": response_lag,
         "split_infos": split_infos,
         "train_minutes": sum(i["train_minutes"] for i in split_infos),

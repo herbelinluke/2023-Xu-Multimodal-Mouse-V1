@@ -2,7 +2,8 @@
 Re-score finished Sensorium runs on validation trials that have real responses.
 
 The Sensorium 2023 release withholds responses for live_test_* and final_test_* trials (they are
-all zeros on disk), but the cache and sensorium_trial_split use every trial. This rebuilds each
+all zeros on disk), but runs made before 2026-11-20 (no response_filter in config) split over
+every trial. Later runs exclude them at split time and are skipped here. This rebuilds each
 run's split, loads best_val.pth, and reports mean per-neuron correlation on all val frames
 (should match summary.json) and on train/oracle-tier val frames only. Inference only.
 """
@@ -33,6 +34,8 @@ for r in load_runs(dataset="sensorium"):
     if not r["summary"]:
         continue
     cfg = r["config"]
+    if cfg.get("response_filter") == "real_only" or cfg.get("session") == "pooled":
+        continue
     session = cfg["session"]
     if session not in _ds:
         cache = build_sensorium_cache(os.path.join(os.path.expanduser("~/Downloads"), session))
