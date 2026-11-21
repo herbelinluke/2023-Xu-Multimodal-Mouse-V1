@@ -1,0 +1,13 @@
+{
+  "best_epoch": 22,
+  "selected_by": "val_cor",
+  "best_val_loss": 0.6384826925065782,
+  "val_loss_at_best": 0.6387049184905158,
+  "val_cor_at_best": 0.21380438724811765,
+  "max_val_cor": 0.21380438724811765,
+  "epochs_run": 34,
+  "steps": 3400,
+  "samples_seen": 870400,
+  "stop_reason": "early_stop",
+  "total_seconds": 222.81326246261597
+}
